@@ -1,0 +1,10 @@
+Secret = 
+smtp_host = 
+smtp_mail = 
+smtp_port = 
+password = 
+
+
+//Paste these if you are using gmail as
+smtp_host = "smtp.gmail.com"
+smtp_port = "587"
