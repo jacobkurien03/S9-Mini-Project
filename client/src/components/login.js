@@ -10,6 +10,7 @@ const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   let history = useHistory();
+  console.log(document.cookie);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +20,7 @@ const Login = () => {
     };
     const response = await axios.post("http://localhost:4000/api/login", data);
     if (response.data.status === "200") {
+      document.cookie = response.data.token + "; path=/";
       history.push("/home");
     } else {
       alert(response.data.message);
@@ -36,9 +38,7 @@ const Login = () => {
         <div className="container-2">Hello how are you</div>
         <Loginimg className="img-container" />
       </div>
-      <form
-        className="d-flex flex-column mx-auto"
-      >
+      <form className="d-flex flex-column mx-auto">
         <div className="card">
           <div className="register-text mb-4">Login</div>
           <label classname="email-label">Email</label>
@@ -79,7 +79,11 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <button type="button" className="btn" onClick={(e) => handleSubmit(e)}>
+          <button
+            type="button"
+            className="btn"
+            onClick={(e) => handleSubmit(e)}
+          >
             Login
           </button>
           <label className="noacc">

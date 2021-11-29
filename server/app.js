@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const SuperadminRoute = require("./routes/superadmincontrols");
+const UserRoute = require("./routes/userRoute");
 const Authroute = require("./routes/authentication");
 
 mongoose.connect("mongodb://localhost:27017/S9MiniProject", {
@@ -42,3 +43,4 @@ app.listen(port, () => {
 
 app.use("/api", Authroute);
 app.use("/api/superadmin", SuperadminRoute);
+app.use("/api/user", UserRoute);

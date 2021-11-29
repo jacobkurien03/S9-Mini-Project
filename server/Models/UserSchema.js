@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    _id: mongoose.Schema.Types.ObjectId,
     name: {
       type: String,
     },
@@ -29,6 +28,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["superadmin", "admin", "member", "seller"],
       default: "member",
+    },
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
     },
   },
   { timestamps: true }

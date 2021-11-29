@@ -1,0 +1,4 @@
+Date   : 19 January, 2020
+Version: 1.2 
+========================
+1. Minor bug fix

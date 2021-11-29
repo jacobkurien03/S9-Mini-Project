@@ -10,34 +10,41 @@ const login = (req, res, next) => {
     $or: [{ username: username }, { email: username }],
   }).then((user) => {
     if (user) {
-      bcrypt.compare(password, user.password, function (err, result) {
-        if (err) {
-          res.json({
-            error: err,
-          });
-        }
-        if (result) {
-          let token = jwt.sign(
-            { username: user.username },
-            process.env.Secret,
-            { expiresIn: "1h" }
-          );
-          res.json({
-            message: "Logged in Successful",
-            status:"200",
-            token,
-          });
-        } else {
-          res.json({
-            message: "Password Mismatch",
-            status: "500"
+      if (user.status === "active") {
+        bcrypt.compare(password, user.password, function (err, result) {
+          if (err) {
+            res.json({
+              error: err,
+            });
+          }
+          if (result) {
+            let token = jwt.sign(
+              { username: user.username },
+              process.env.Secret,
+              { expiresIn: "1h" }
+            );
+            res.json({
+              message: "Logged in Successful",
+              status: "200",
+              token: "Bearer " + token,
+            });
+          } else {
+            res.json({
+              message: "Password Mismatch",
+              status: "500",
+            });
+          }
         });
-    }
-});
-} else {
-    res.json({
+      } else {
+        return res.json({
+          message: "No User Found!",
+          status: "500",
+        });
+      }
+    } else {
+      res.json({
         message: "No user Found!",
-        status: "500"
+        status: "500",
       });
     }
   });
