@@ -5,13 +5,13 @@ const SubCategory = require("../Models/subCategory")
 const index = async (req, res, next) => {
   Category.find()
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error",
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -21,13 +21,13 @@ const show = async (req, res, next) => {
   let categoryId = req.body.categoryId;
   Category.findById(categoryId)
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error!",
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -42,13 +42,13 @@ const addCategory = async (req, res, next) => {
   category
     .save()
     .then((user) => {
-      res.json({
+      return res.status(200).send({
         message: "Category Added Successfully",
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -58,13 +58,13 @@ const destroy = async (req, res, next) => {
   let categoryId = req.body.categoryId;
   Category.findByIdAndRemove(categoryId)
     .then((user) => {
-      res.json({
+      return res.status(200).send({
         message: "Category Deleted Successfully",
       });
     })
     .catch((error) => {
-      res.json({
-        message: error.message,
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -75,13 +75,13 @@ const destroy = async (req, res, next) => {
 const subCategoryIndex = async (req, res, next) => {
   SubCategory.find()
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error",
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -91,13 +91,13 @@ const subCategoryShow = async (req, res, next) => {
   let subCategoryId = req.body.subCategoryId;
   SubCategory.findById(categoryId)
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error!",
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -110,13 +110,13 @@ const addSubCategory = async (req, res, next) => {
   subCategory
     .save()
     .then((user) => {
-      res.json({
+      return res.status(200).send({
         message: "Sub Category Added Successfully",
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message:error.message
       });
     });
 };
@@ -126,13 +126,13 @@ const destroySubCategory = async (req, res, next) => {
   let subCategoryId = req.body.subCategoryId;
   SubCategory.findByIdAndRemove(subCategoryId)
     .then((user) => {
-      res.json({
+      return res.status(200).send({
         message: "Sub Category Deleted Successfully",
       });
     })
     .catch((error) => {
-      res.json({
-        message: error.message,
+      return res.status(500).send({
+        message:error.message
       });
     });
 };

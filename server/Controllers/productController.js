@@ -4,13 +4,13 @@ const Product = require("../Models/product");
 const index = async (req, res, next) => {
   Product.find()
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error",
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -20,13 +20,13 @@ const show = async (req, res, next) => {
   let productId = req.body.productId;
   Product.findById(productId)
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error!",
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -34,15 +34,15 @@ const show = async (req, res, next) => {
 //Show product by category
 const productCategory = async (req, res, next) => {
   let categoryId = req.body.categoryId;
-  Product.find({categoryId:categoryId})
+  Product.find({ categoryId: categoryId })
     .then((response) => {
-      res.json({
+      return res.status(200).send({
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error!",
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -59,13 +59,13 @@ const addProduct = async (req, res, next) => {
   product
     .save()
     .then((product) => {
-      res.json({
+      return res.status(200).send({
         message: product,
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -75,12 +75,12 @@ const destroy = async (req, res, next) => {
   let productId = req.body.productId;
   Product.findByIdAndRemove(productId)
     .then((product) => {
-      res.json({
+      return res.status(200).send({
         message: product,
       });
     })
     .catch((error) => {
-      res.json({
+      return res.status(500).send({
         message: error.message,
       });
     });
@@ -91,5 +91,5 @@ module.exports = {
   show,
   destroy,
   addProduct,
-  productCategory
+  productCategory,
 };

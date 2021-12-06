@@ -6,8 +6,7 @@ const jwt_decode = require("jwt-decode");
 const decode = async (req, res, next) => {
   let token = req.body.token;
   var decoded = jwt_decode(token);
-
-  res.json({
+  return res.status(500).send({
     message: decoded,
   });
 };
@@ -16,13 +15,14 @@ const decode = async (req, res, next) => {
 const showUserDetails = async (req, res, next) => {
   const user = await User.findOne({ username: req.user.username })
     .then((response) => {
-      res.json({
+      return res.status(200).send({
+        
         response,
       });
     })
     .catch((error) => {
-      res.json({
-        message: "Error!",
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -33,7 +33,8 @@ const changePassword = async (req, res, next) => {
     const user = await User.findOne({ username: req.user.username });
     bcrypt.compare(req.body.oldPassword, user.password, function (err, result) {
       if (err) {
-        return res.json({
+        return res.status(500).send({
+          
           error: err,
           val: req.body.oldPassword,
         });
@@ -41,8 +42,8 @@ const changePassword = async (req, res, next) => {
       if (result) {
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
           if (err) {
-            return res.json({
-              error: err,
+            return res.status(500).send({
+              message: err,
             });
           }
           let updateduser = {
@@ -50,28 +51,27 @@ const changePassword = async (req, res, next) => {
           };
           User.findByIdAndUpdate(user.id, { $set: updateduser })
             .then((user) => {
-              return res.json({
+              return res.status(200).send({
+        
                 message: "Password Changed Successfully",
               });
             })
             .catch((error) => {
-              return res.json({
-                message: error,
+              return res.status(500).send({
+                message: error.message,
               });
             });
         });
       } else {
-        return res.json({
+        return res.status(500).send({
           message: "Password Mismatch",
-          status: "500",
         });
       }
     });
     ////////////////
   } catch (error) {
-    return res.json({
-      status:500,
-      message: error,
+    return res.status(500).send({
+      message: error.message,
     });
   }
 };
@@ -87,13 +87,14 @@ const update = async (req, res, next) => {
   const user = await User.findOne({ username: req.user.username });
   User.findByIdAndUpdate(user.id, { $set: updatedUser })
     .then((user) => {
-      res.json({
+      return res.status(200).send({
+        
         message: "Updated Details Successfully",
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -113,12 +114,13 @@ const addAddress = async (req, res, next) => {
   await userAddress
     .save()
     .then((address) => {
-      res.json({
+      return res.status(200).send({
+        
         message: address,
       });
     })
     .catch((error) => {
-      res.json({
+      return res.status(500).send({
         message: error.message,
       });
     });
@@ -129,13 +131,14 @@ const showAddress = async (req, res) => {
   const user = await User.findOne({ username: req.user.username });
   await UserAddress.find({ userId: user.id })
     .then((address) => {
-      res.json({
+      return res.status(200).send({
+        
         message: address,
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -146,13 +149,14 @@ const deleteAddress = async (req, res) => {
   const addressId = req.body.addressId;
   await UserAddress.findByIdAndRemove(addressId)
     .then((address) => {
-      res.json({
+      return res.status(200).send({
+        
         message: address,
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };
@@ -170,13 +174,14 @@ const updateAddress = async (req, res, next) => {
   const user = await User.findOne({ username: req.user.username });
   UserAddress.findByIdAndUpdate(body.addressId, { $set: updatedUser })
     .then((user) => {
-      res.json({
+      return res.status(200).send({
+        
         message: user,
       });
     })
     .catch((error) => {
-      res.json({
-        message: error,
+      return res.status(500).send({
+        message: error.message,
       });
     });
 };

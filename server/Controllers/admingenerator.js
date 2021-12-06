@@ -13,9 +13,9 @@ const admingenerator = async (req,res,next)=>{
         let userID = req.body.userID
         bcrypt.hash(password, 10, function(err, hashedPass){
             if(err){
-                res.json({
-                    error:err
-                })
+                return res.status(500).send({
+                    error:err,
+                  }); 
             }
             let updateduser = {
                 password: hashedPass,
@@ -23,14 +23,14 @@ const admingenerator = async (req,res,next)=>{
             }
             User.findByIdAndUpdate(userID, {$set: updateduser})
             .then(user=>{
-                res.json({
+                return res.status(200).send({
                     message:`User is now an admin with new password : ${password} `
-                })
+                  });
             })
             .catch(error =>{
-                res.json({
-                    message:'Error'
-                })
+                return res.status(500).send({
+                    message: error.message,
+                  });
             })
         })
     }   
@@ -45,14 +45,14 @@ const admindelete = async (req,res,next)=>{
         }
         User.findByIdAndUpdate(userID, {$set: updateduser})
         .then(user=>{
-            res.json({
+            return res.status(500).send({
                 message:`User is no longer an admin `
-            })
+              });
         })
         .catch(error =>{
-            res.json({
-                message:'Error'
-            })
+            return res.status(500).send({
+                message:error.message
+              });
         })   
     }
 }

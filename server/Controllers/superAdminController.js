@@ -7,13 +7,13 @@ const index = async (req, res, next) => {
   if (user.role == "superadmin") {
     User.find()
       .then((response) => {
-        res.json({
+        return res.status(200).send({
           response,
         });
       })
       .catch((error) => {
-        res.json({
-          message: "Error",
+        return res.status(500).send({
+          message: error.message,
         });
       });
   }
@@ -26,13 +26,13 @@ const show = async (req, res, next) => {
     let userID = req.body.userID;
     User.findById(userID)
       .then((response) => {
-        res.json({
+        return res.status(200).send({
           response,
         });
       })
       .catch((error) => {
-        res.json({
-          message: "Error!",
+        return res.status(500).send({
+          message: error.message,
         });
       });
   }
@@ -44,8 +44,8 @@ const store = async (req, res, next) => {
   if (user.role == "superadmin") {
     bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
       if (err) {
-        res.json({
-          error: err,
+        return res.status(500).send({
+          message: err,
         });
       }
       let user = new User({
@@ -57,13 +57,13 @@ const store = async (req, res, next) => {
       user
         .save()
         .then((user) => {
-          res.json({
+          return res.status(200).send({
             message: "User Added Successfully",
           });
         })
         .catch((error) => {
-          res.json({
-            message: error,
+          return res.status(500).send({
+            message: error.message,
           });
         });
     });
@@ -78,8 +78,8 @@ const update = async (req, res, next) => {
 
     bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
       if (err) {
-        res.json({
-          error: err,
+        return res.status(500).send({
+          message: err,
         });
       }
       let updateduser = {
@@ -87,13 +87,13 @@ const update = async (req, res, next) => {
       };
       User.findByIdAndUpdate(userID, { $set: updateduser })
         .then((user) => {
-          res.json({
+          return res.status(200).send({
             message: "User Updated Successfully",
           });
         })
         .catch((error) => {
-          res.json({
-            message: "Error",
+          return res.status(500).send({
+            message: error.message,
           });
         });
     });
@@ -106,16 +106,16 @@ const destroy = async (req, res, next) => {
   if (user.role == "superadmin") {
     let userID = req.body.userID;
     let userStatus = {
-      status:"inactive"
-    }
-    User.findByIdAndUpdate(userID,{ $set: userStatus })
+      status: "inactive",
+    };
+    User.findByIdAndUpdate(userID, { $set: userStatus })
       .then((user) => {
-        res.json({
+        return res.status(200).send({
           message: "User Deleted Successfully",
         });
       })
       .catch((error) => {
-        res.json({
+        return res.status(500).send({
           message: error.message,
         });
       });
@@ -127,16 +127,16 @@ const reActivate = async (req, res, next) => {
   if (user.role == "superadmin") {
     let userID = req.body.userID;
     let userStatus = {
-      status:"active"
-    }
-    User.findByIdAndUpdate(userID,{ $set: userStatus })
+      status: "active",
+    };
+    User.findByIdAndUpdate(userID, { $set: userStatus })
       .then((user) => {
-        res.json({
+        return res.status(200).send({
           message: "User ReActivated",
         });
       })
       .catch((error) => {
-        res.json({
+        return res.status(500).send({
           message: error.message,
         });
       });
@@ -149,5 +149,5 @@ module.exports = {
   store,
   update,
   destroy,
-  reActivate
+  reActivate,
 };
