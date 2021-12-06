@@ -121,6 +121,27 @@ const destroy = async (req, res, next) => {
       });
   }
 };
+//Reactivate a User
+const reActivate = async (req, res, next) => {
+  const user = await User.findOne({ username: req.user.username });
+  if (user.role == "superadmin") {
+    let userID = req.body.userID;
+    let userStatus = {
+      status:"active"
+    }
+    User.findByIdAndUpdate(userID,{ $set: userStatus })
+      .then((user) => {
+        res.json({
+          message: "User ReActivated",
+        });
+      })
+      .catch((error) => {
+        res.json({
+          message: error.message,
+        });
+      });
+  }
+};
 
 module.exports = {
   index,
@@ -128,4 +149,5 @@ module.exports = {
   store,
   update,
   destroy,
+  reActivate
 };

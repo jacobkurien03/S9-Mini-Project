@@ -27,6 +27,8 @@ router.post("/changePass", Authenticate, UserController.update);
 
 //Delete a user
 router.post("/deleteUser", Authenticate, UserController.destroy);
+//Delete a user
+router.post("/reactivateUser", Authenticate, UserController.reActivate);
 
 //Create New admin
 router.post("/newAdmin", Authenticate, AdminGenerator.admingenerator);
@@ -35,17 +37,17 @@ router.post("/newAdmin", Authenticate, AdminGenerator.admingenerator);
 router.post("/deleteAdmin", Authenticate, AdminGenerator.admindelete);
 
 //Categories
-router.post("/addCategory", CategoryController.addCategory);
-router.post("/deleteCategory", CategoryController.destroy);
-router.post("/showCategory", CategoryController.show);
-router.get("/showCategories", CategoryController.index);
+router.post("/addCategory",Authenticate, CategoryController.addCategory);
+router.post("/deleteCategory",Authenticate, CategoryController.destroy);
+router.post("/showCategory",Authenticate, CategoryController.show);
+router.get("/showCategories",Authenticate, CategoryController.index);
 
 
 //SubCategories
-router.post("/addSubCategory", CategoryController.addSubCategory);
-router.post("/deleteSubCategory", CategoryController.destroySubCategory);
-router.post("/showSubCategory", CategoryController.subCategoryShow);
-router.get("/showSubCategories", CategoryController.subCategoryIndex);
+router.post("/addSubCategory",Authenticate, CategoryController.addSubCategory);
+router.post("/deleteSubCategory",Authenticate, CategoryController.destroySubCategory);
+router.post("/showSubCategory",Authenticate, CategoryController.subCategoryShow);
+router.get("/showSubCategories",Authenticate, CategoryController.subCategoryIndex);
 
 //Products
 router.post("/addProduct", productController.addProduct);

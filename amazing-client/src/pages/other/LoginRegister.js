@@ -25,14 +25,15 @@ const LoginRegister = ({ location }) => {
     };
     const response = await axios.post("http://localhost:4000/api/login", data);
     if (response.data.status === "200") {
-      //setToken(response.data.token);
       const isAuthTokenValid = isUserAuthenticated();
-        if (isAuthTokenValid) {
-          history.push("/");
-        }
-      
-    } else {
-      alert(response.data.message);
+      window.localStorage.setItem("token", response.data.token);
+      if (response.data.role === "superadmin") {
+        history.push("/SuperAdmin/home");
+      } else if (response.data.role === "admin") {
+        history.push("/");
+      } else if (response.data.role === "member") {
+        history.push("/");
+      }
     }
   };
 
@@ -108,10 +109,10 @@ const LoginRegister = ({ location }) => {
       name: name,
       email: email,
       phNum: phNum,
-      username: loginUserName,
-      password: loginPassword,
+      username: username,
+      password: password,
     };
-    if (loginPassword === reEnterPass) {
+    if (password === reEnterPass) {
       const response = await axios.post(
         "http://localhost:4000/api/register",
         data
@@ -180,7 +181,7 @@ const LoginRegister = ({ location }) => {
                                 <div className="login-toggle-btn">
                                   <input type="checkbox" />
                                   <label className="ml-10">Remember me</label>
-                                  <Link to={process.env.PUBLIC_URL + "/"}>
+                                  <Link to={process.env.PUBLIC_URL + "/forgot-password"}>
                                     Forgot Password?
                                   </Link>
                                 </div>

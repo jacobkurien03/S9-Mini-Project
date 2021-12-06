@@ -42,5 +42,5 @@ app.listen(port, () => {
 });
 
 app.use("/api", Authroute);
-app.use("/api/superadmin", SuperadminRoute);
-app.use("/api/user", UserRoute);
+app.use("/superadmin", SuperadminRoute);
+app.use("/user", UserRoute);

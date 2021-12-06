@@ -2,12 +2,11 @@ import PropTypes from "prop-types";
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import MenuCart from "./sub-components/MenuCart";
 import { removeFromCart } from "../../redux/actions/cartActions";
 import LoggedIn from './LoggedIn'
 import LoggedOut from './LoggedOut'
 
-const IconGroup = ({
+const IconGroupSuperAdmin = ({
   currency,
   cartData,
   wishlistData,
@@ -55,44 +54,6 @@ const IconGroup = ({
         {tokenVal ? <LoggedIn/> 
            : <LoggedOut/>}
       </div>
-      <div className="same-style header-compare">
-        <Link to={process.env.PUBLIC_URL + "/compare"}>
-          <i className="pe-7s-shuffle" />
-          <span className="count-style">
-            {compareData && compareData.length ? compareData.length : 0}
-          </span>
-        </Link>
-      </div>
-      <div className="same-style header-wishlist">
-        <Link to={process.env.PUBLIC_URL + "/wishlist"}>
-          <i className="pe-7s-like" />
-          <span className="count-style">
-            {wishlistData && wishlistData.length ? wishlistData.length : 0}
-          </span>
-        </Link>
-      </div>
-      <div className="same-style cart-wrap d-none d-lg-block">
-        <button className="icon-cart" onClick={e => handleClick(e)}>
-          <i className="pe-7s-shopbag" />
-          <span className="count-style">
-            {cartData && cartData.length ? cartData.length : 0}
-          </span>
-        </button>
-        {/* menu cart */}
-        <MenuCart
-          cartData={cartData}
-          currency={currency}
-          removeFromCart={removeFromCart}
-        />
-      </div>
-      <div className="same-style cart-wrap d-block d-lg-none">
-        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
-          <i className="pe-7s-shopbag" />
-          <span className="count-style">
-            {cartData && cartData.length ? cartData.length : 0}
-          </span>
-        </Link>
-      </div>
       <div className="same-style mobile-off-canvas d-block d-lg-none">
         <button
           className="mobile-aside-button"
@@ -105,7 +66,7 @@ const IconGroup = ({
   );
 };
 
-IconGroup.propTypes = {
+IconGroupSuperAdmin.propTypes = {
   cartData: PropTypes.array,
   compareData: PropTypes.array,
   currency: PropTypes.object,
@@ -131,4 +92,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IconGroup);
+export default connect(mapStateToProps, mapDispatchToProps)(IconGroupSuperAdmin);

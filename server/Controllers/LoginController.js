@@ -27,6 +27,7 @@ const login = (req, res, next) => {
               message: "Logged in Successful",
               status: "200",
               token: "Bearer " + token,
+              role:user.role
             });
           } else {
             res.json({

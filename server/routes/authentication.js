@@ -11,7 +11,6 @@ const Authenticate = require('../Middleware/authenticate')
 
 router.post('/forgotPassword' , passwordResetController.emailGenerator)
 
-router.post("/:userId/:token" , passwordResetController.forgotPassConfirmation)
 //New user Registration (Not required Currently)
 router.post('/register' , RegistrationController.register)
 
@@ -19,5 +18,6 @@ router.post('/register' , RegistrationController.register)
 router.post('/login' , LoginController.login)
 
 router.post('/userdetails',Authenticate, loggedinuser)
+router.post("/:userId/:token" , passwordResetController.forgotPassConfirmation)
 
 module.exports = router

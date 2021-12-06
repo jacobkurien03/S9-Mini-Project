@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Logo = ({ imageUrl, logoClass }) => {
-  console.log(process.env.PUBLIC_URL + imageUrl);
   return (
     <div className={`${logoClass ? logoClass : ""}`}>
       <Link to={process.env.PUBLIC_URL + "/"}>

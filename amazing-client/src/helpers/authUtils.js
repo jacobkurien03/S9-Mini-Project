@@ -12,7 +12,6 @@ const isUserAuthenticated = () => {
     }
     const decoded = jwtDecode(user.token);
     const currentTime = Date.now() / 60000;
-    alert(user.token)
     if (decoded.exp < currentTime) {
         console.warn('Access token expired');
         return false;

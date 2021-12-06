@@ -9,6 +9,14 @@ import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
+const LandingPage = lazy(() => import("./pages/home/LandingPage"));
+
+//Admin Pages
+const SuperAdminHome = lazy(() => import("./pages/superAdmin/AdminHome"))
+const ShowUsers = lazy(()=> import("./pages/superAdmin/Users"))
+const ShowProducts = lazy(()=> import("./pages/superAdmin/Products"))
+const ShowCategory = lazy(()=> import("./pages/superAdmin/Category"))
+const ShowSubCategory = lazy(()=> import("./pages/superAdmin/SubCategory"))
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 
@@ -28,6 +36,7 @@ const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
+const ForgotPassword = lazy(() => import("./pages/other/ForgotPassword"));
 
 const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
@@ -35,6 +44,7 @@ const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
+const MailSent = lazy(() => import("./pages/other/MailSent"));
 
 const App = props => {
   useEffect(() => {
@@ -86,6 +96,36 @@ const App = props => {
                   path={process.env.PUBLIC_URL + "/home-fashion"}
                   component={HomeFashion}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/landingPage"}
+                  component={LandingPage}
+                />
+
+                {/*SuperAdmin HOme*/}
+                <Route
+                  path={process.env.PUBLIC_URL + "/SuperAdmin/home"}
+                  component={SuperAdminHome}
+                />
+                {/*Show Users*/}
+                <Route
+                  path={process.env.PUBLIC_URL + "/SuperAdmin/users"}
+                  component={ShowUsers}
+                />
+                {/*Show category*/}
+                <Route
+                  path={process.env.PUBLIC_URL + "/SuperAdmin/category"}
+                  component={ShowCategory}
+                />
+                {/*Show sub cateogry*/}
+                <Route
+                  path={process.env.PUBLIC_URL + "/SuperAdmin/sub-category"}
+                  component={ShowSubCategory}
+                />
+                {/*Show products*/}
+                <Route
+                  path={process.env.PUBLIC_URL + "/SuperAdmin/products"}
+                  component={ShowProducts}
+                />
 
                 {/* Shop pages */}
                 <Route
@@ -126,6 +166,10 @@ const App = props => {
                   path={process.env.PUBLIC_URL + "/login-register"}
                   component={LoginRegister}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/forgot-password"}
+                  component={ForgotPassword}
+                />
 
                 <Route
                   path={process.env.PUBLIC_URL + "/cart"}
@@ -147,6 +191,10 @@ const App = props => {
                 <Route
                   path={process.env.PUBLIC_URL + "/not-found"}
                   component={NotFound}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/mail-sent"}
+                  component={MailSent}
                 />
 
                 <Route exact component={NotFound} />

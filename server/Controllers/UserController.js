@@ -29,12 +29,19 @@ const showUserDetails = async (req, res, next) => {
 
 //Changepassword
 const changePassword = async (req, res, next) => {
-    try{
-        console.log(req.user)
-        const user = await User.findOne({ username: req.user.username });
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    bcrypt.compare(req.body.oldPassword, user.password, function (err, result) {
+      if (err) {
+        return res.json({
+          error: err,
+          val: req.body.oldPassword,
+        });
+      }
+      if (result) {
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
           if (err) {
-            res.json({
+            return res.json({
               error: err,
             });
           }
@@ -43,32 +50,39 @@ const changePassword = async (req, res, next) => {
           };
           User.findByIdAndUpdate(user.id, { $set: updateduser })
             .then((user) => {
-              res.json({
+              return res.json({
                 message: "Password Changed Successfully",
               });
             })
             .catch((error) => {
-              res.json({
+              return res.json({
                 message: error,
               });
             });
         });
-    }
-    catch(error){
-        return res.sjon({
-            message:error
-        })
-    }
-
+      } else {
+        return res.json({
+          message: "Password Mismatch",
+          status: "500",
+        });
+      }
+    });
+    ////////////////
+  } catch (error) {
+    return res.json({
+      status:500,
+      message: error,
+    });
+  }
 };
 
 //Update User Details
 const update = async (req, res, next) => {
-  let body = req.body
+  let body = req.body;
   let updatedUser = {
     name: body.name,
     username: body.username,
-    phNum: body.phoneNumber
+    phNum: body.phoneNumber,
   };
   const user = await User.findOne({ username: req.user.username });
   User.findByIdAndUpdate(user.id, { $set: updatedUser })
@@ -89,7 +103,7 @@ const addAddress = async (req, res, next) => {
   let body = req.body;
   const user = await User.findOne({ username: req.user.username });
   let userAddress = new UserAddress({
-    userId: user.Id,
+    userId: user.id,
     address: body.address,
     city: body.city,
     postalCode: body.postalCode,
@@ -111,62 +125,61 @@ const addAddress = async (req, res, next) => {
 };
 
 //show Address
-const showAddress = async (req,res) =>{
-    const user = await User.findOne({ username: req.user.username });
-    await UserAddress.find({userId: user.Id})
-    .then(address=>{
-        res.json({
-            message:address
-        })
+const showAddress = async (req, res) => {
+  const user = await User.findOne({ username: req.user.username });
+  await UserAddress.find({ userId: user.id })
+    .then((address) => {
+      res.json({
+        message: address,
+      });
     })
-    .catch(error=>{
-        res.json({
-            message:error
-        })
+    .catch((error) => {
+      res.json({
+        message: error,
+      });
     });
-}
-
+};
 
 //Delete Address
-const deleteAddress = async (req,res) =>{
-    const user = await User.findOne({ username: req.user.username });
-    const addressId = req.body.addressId;
-    await UserAddress.findByIdAndRemove(addressId)
-    .then(address=>{
-        res.json({
-            message:address
-        })
+const deleteAddress = async (req, res) => {
+  const user = await User.findOne({ username: req.user.username });
+  const addressId = req.body.addressId;
+  await UserAddress.findByIdAndRemove(addressId)
+    .then((address) => {
+      res.json({
+        message: address,
+      });
     })
-    .catch(error=>{
-        res.json({
-            message:error
-        })
+    .catch((error) => {
+      res.json({
+        message: error,
+      });
     });
-}
+};
 
 //update Address
 const updateAddress = async (req, res, next) => {
-    let body = req.body;
-    let updatedUser = {
-        address: body.address,
-        city: body.city,
-        postalCode: body.postalCode,
-        country: body.country,
-        phoneNumber: body.phoneNumber,
-    };
-    const user = await User.findOne({ username: req.user.username });
-    UserAddress.findByIdAndUpdate(body.addressId, { $set: updatedUser })
-      .then((user) => {
-        res.json({
-          message: user,
-        });
-      })
-      .catch((error) => {
-        res.json({
-          message: error,
-        });
-      });
+  let body = req.body;
+  let updatedUser = {
+    address: body.address,
+    city: body.city,
+    postalCode: body.postalCode,
+    country: body.country,
+    phoneNumber: body.phoneNumber,
   };
+  const user = await User.findOne({ username: req.user.username });
+  UserAddress.findByIdAndUpdate(body.addressId, { $set: updatedUser })
+    .then((user) => {
+      res.json({
+        message: user,
+      });
+    })
+    .catch((error) => {
+      res.json({
+        message: error,
+      });
+    });
+};
 
 module.exports = {
   update,
@@ -175,5 +188,5 @@ module.exports = {
   addAddress,
   updateAddress,
   deleteAddress,
-  showAddress
+  showAddress,
 };

@@ -4,12 +4,11 @@ const router = express.Router();
 const UserController = require("../Controllers/userController");
 const Authenticate = require("../Middleware/authenticate")
 
-//change Password
-router.post("/changePassword",Authenticate, UserController.changePassword)
-
 //show Details
 router.get("/showDetails",Authenticate, UserController.showUserDetails)
 
+//change Password
+router.post("/changePassword",Authenticate, UserController.changePassword)
 //update Details
 router.post("/updateUser",Authenticate,UserController.update)
 
