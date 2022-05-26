@@ -23,8 +23,6 @@ const ProductEditPage = ({ match, history }) => {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState(0.0);
   const [countInStock, setCountInStock] = useState(0);
-  const [file, setFile] = useState();
-  const [fileName, setFileName] = useState("");
 
   // to upload product image
   const [uploading, setUploading] = useState(false);
@@ -121,7 +119,7 @@ const ProductEditPage = ({ match, history }) => {
   // submit the product details
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (nameError == false && brandError == false) {
+    if (nameError === false && brandError === false) {
       let data = {
         name: name,
         brand: brand,
@@ -159,20 +157,12 @@ const ProductEditPage = ({ match, history }) => {
     try {
       const config = {
         headers: {
-          'content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data'
         }
       };
-      console.log(f);
-      console.log(fn);
-      //   for (var pair of formData.entries()) {
-      //     console.log(pair[0] + ", " + pair[1]);
-      //   }
-      let energy = {
-        name: fn,
-        class: f,
-      };
-      let response = await axios.post(`/api/upload`, energy,config);
-      //setImage(data);
+      let {data} = await axios.post(`/api/upload`, formData,config);
+	  let value = '/static/'+data
+      setImage(value);
       setUploading(false);
     } catch (error) {
       console.log(error);
@@ -180,7 +170,7 @@ const ProductEditPage = ({ match, history }) => {
       setUploading(false);
     }
   };
-
+  let url = 'http://localhost:5000'
   return (
     <>
       <Link to="/admin/productlist">
@@ -284,8 +274,6 @@ const ProductEditPage = ({ match, history }) => {
                           id="file"
                           ref={inputFile}
                           onChange={(event) => {
-                            setFile(event.target.files[0]);
-                            setFileName(event.target.files[0].name);
                             handleFileUpload(event);
                           }}
                         //   onClick={(event) => {

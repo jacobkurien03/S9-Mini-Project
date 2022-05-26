@@ -124,26 +124,29 @@ const ProductEditPage = ({ match, history }) => {
 	};
 
 	// submit file to aws bucket, get the url
-	const handleFileUpload = async (e) => {
-		const file = e.target.files[0];
+	const handleFileUpload = async (event) => {
 		const formData = new FormData();
-		formData.append('image', file);
-		setUploading(true);
-		try {
-			const config = {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			};
-			console.log(file)
-			const { data } = await axios.post('/api/upload', formData, config);
-			setImage(data);
-			setUploading(false);
-		} catch (error) {
-			console.log(error)
-			setErrorImageUpload('Please choose a valid image');
-			setUploading(false);
-		}
+    const f = event.target.files[0];
+    const fn = event.target.files[0].name;
+    formData.append("file", f);
+    formData.append("filename", fn);
+
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      let {data} = await axios.post(`/api/upload`, formData,config);
+	  let value = '/static/'+data
+      setImage(value);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setErrorImageUpload("Please choose a valid image");
+      setUploading(false);
+    }
 	};
 
 	return (
@@ -247,7 +250,9 @@ const ProductEditPage = ({ match, history }) => {
 													type='file'
 													id='file'
 													ref={inputFile}
-													onChange={handleFileUpload}
+													onChange={(event) => {
+														handleFileUpload(event);
+													  }}
 													style={{ display: 'none' }}
 												/>
 												<div

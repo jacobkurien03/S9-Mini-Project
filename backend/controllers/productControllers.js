@@ -209,7 +209,7 @@ const deleteCategory = asyncHandler(async (req, res) => {
 	const category = await Category.findById(req.params.id);
 	if (category) {
 		const products = await Product.find({ category: category.name });
-		if(products){
+		if(products.length>0){
 			res.status(500).json({ message: 'Category cannot be removed' });
 		}else{
 			await category.remove();

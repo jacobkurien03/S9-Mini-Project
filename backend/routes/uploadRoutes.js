@@ -6,8 +6,12 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 import fileUpload from "express-fileupload";
+import path from 'path'
 const app = express();
 app.use(fileUpload());
+app.use(express.urlencoded({ extended: true }));
+
+import { dirname } from 'path';
 
 // Create a new instance of the S3 bucket object with the correct user credentials
 const s3 = new aws.S3({
@@ -52,12 +56,14 @@ const upload = multer({
 
 router.post("/", (req, res) => {
   console.log("hi");
-  console.log(req);
-  console.log(req.body)
   const img_name = Date.now() + req.body.filename;
   //console.log(Date.now());
   const file = req.files.file;
-  const newpath = __dirname + "/Images/";
+  
+  const newpath = process.cwd()+"/backend/routes" + "/Images/";
+  
+  console.log(path.join(process.cwd()+"/backend/routes", "/Images/"))
+  console.log(img_name)
   // if (req.files) {
   //   let coverImage = req.files.image;
   //   console.log(coverImage)

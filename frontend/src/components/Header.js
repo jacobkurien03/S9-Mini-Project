@@ -66,16 +66,19 @@ const Header = () => {
 	};
 
 	async function getWishlist() {
-        let data = {
-            userId:userInfo.id
-        }
-        let response = await axios.post(
-          "/api/products/getWishlist",data
-        );
-        if (response.status === 200) {     
-			let data = response.data.message
-          SetWishlistCount(data.length);
-        }
+		if(userInfo){
+			
+			let data = {
+				userId:userInfo.id
+			}
+			let response = await axios.post(
+			  "/api/products/getWishlist",data
+			);
+			if (response.status === 200) {     
+				let data = response.data.message
+			  SetWishlistCount(data.length);
+			}
+		}
       }
       useEffect(() => {
         getWishlist();

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {  useSelector } from 'react-redux';
 import {
 	CART_ADD_ITEM,
 	CART_REMOVE_ITEM,
@@ -9,16 +10,7 @@ import {
 // get the product id and the quantity of the item to add to the cart
 export const addItem = (id, qty) => async (dispatch, getState) => {
 	try {
-		const { data } = await axios.get(`/api/products/${id}`);
-		// let newD = localStorage.getItem('cartItems',getState())
-		// let joinedArray = ''
-		// for (let i=0; i<newD.length;i++){
-		// 	joinedArray = joinedArray.concat(newD[i])
-		// }
-		// console.log(joinedArray)
-		// console.log(joinedArray.find('productId'))
-
-
+		const { data } = await axios.get(`/api/products/${id}`);	
 		dispatch({
 			type: CART_ADD_ITEM,
 			payload: {

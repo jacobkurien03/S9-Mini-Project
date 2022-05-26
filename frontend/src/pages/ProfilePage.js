@@ -139,10 +139,12 @@ const ProfilePage = ({ history }) => {
 	};
 
 	// handle file upload to aws bucket
-	const handleImageUpload = async (e) => {
-		const file = e.target.files[0];
+	const handleImageUpload = async (event) => {
 		const formData = new FormData();
-		formData.append('image', file);
+    const f = event.target.files[0];
+    const fn = event.target.files[0].name;
+    formData.append("file", f);
+    formData.append("filename", fn);
 		setUploading(true);
 		try {
 			const config = {
@@ -152,11 +154,13 @@ const ProfilePage = ({ history }) => {
 			};
 
 			const { data } = await axios.post('/api/upload', formData, config);
-			setAvatar(data);
+			let value = '/static/'+data
+			console.log(value)
+			setAvatar(value);
 			dispatch(
 				updateUserProfile({
 					id: user.id,
-					avatar: data,
+					avatar: value,
 				})
 			);
 			setUploading(false);
@@ -308,7 +312,9 @@ const ProfilePage = ({ history }) => {
 							accept="image/*"
 							id='file'
 							ref={inputFile}
-							onChange={handleImageUpload}
+							onChange={(event) => {
+								handleImageUpload(event);
+							  }}
 							style={{ display: 'none' }}
 						/>
 						<Form onSubmit={handleSubmit}>
