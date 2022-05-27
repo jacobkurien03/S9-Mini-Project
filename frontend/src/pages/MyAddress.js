@@ -56,7 +56,7 @@ const MyAddress = ({ history }) => {
             },
         };
         let response = await axios.post(
-          `/api/users/addAddress`,data,config
+          `https://infinite-stream-23131.herokuapp.com/api/users/addAddress`,data,config
         );
         if(response.status == 200){
             history.push('/myAddress')

@@ -151,7 +151,7 @@ const ProductPage = ({ history, match }) => {
 				productId:match.params.id
 			}
 			let response = await axios.post(
-			  `/api/products/createWishlist`,data
+			  `https://infinite-stream-23131.herokuapp.com/api/products/createWishlist`,data
 			);
 			window.location.reload()
 	};

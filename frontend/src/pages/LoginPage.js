@@ -170,7 +170,7 @@ const LoginPage = ({ location, history }) => {
 		};
 
 		const { data } = await axios.post(
-			'/api/users/reset',
+			'https://infinite-stream-23131.herokuapp.com/api/users/reset',
 			{ email },
 			config
 		);

@@ -38,7 +38,7 @@ const Wishlist = ({ match, location, history }) => {
             userId:userInfo.id
         }
         let response = await axios.post(
-          "/api/products/getWishlist",data
+          "https://infinite-stream-23131.herokuapp.com/api/products/getWishlist",data
         );
         if (response.status === 200) {
             let products = response.data.message
@@ -103,7 +103,7 @@ const Wishlist = ({ match, location, history }) => {
 				wishlistId: id
 			}
 			let response = await axios.post(
-			  `/api/products/removeProductWishlist`,data
+			  `https://infinite-stream-23131.herokuapp.com/api/products/removeProductWishlist`,data
 			);
 			window.location.reload()
 		}

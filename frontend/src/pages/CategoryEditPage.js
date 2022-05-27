@@ -81,7 +81,7 @@ const CategoryEditPage = ({ match, history }) => {
 				description:description
 			}
 			let response = await axios.post(
-			  `/api/products/categoryupdate/`+categoryId,data
+			  `https://infinite-stream-23131.herokuapp.com/api/products/categoryupdate/`+categoryId,data
 			);
 		}
 	};

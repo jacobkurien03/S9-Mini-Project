@@ -114,7 +114,7 @@ const CreateCategory = ({ match, history }) => {
 				description:description
 			}
 			let response = await axios.post(
-			  `/api/products/createcategory`,data
+			  `https://infinite-stream-23131.herokuapp.com/api/products/createcategory`,data
 			);
             history.push('/admin/categorylist');
 		  }

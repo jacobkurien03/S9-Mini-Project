@@ -21,7 +21,7 @@ const CheckoutForm = ({ price, orderID }) => {
 	useEffect(() => {
 		const getClientSecret = async () => {
 			const { data } = await axios.post(
-				'/api/orders/stripe-payment',
+				'https://infinite-stream-23131.herokuapp.com/api/orders/stripe-payment',
 				{ price, email: userInfo.email },
 				{
 					headers: {

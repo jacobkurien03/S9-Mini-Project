@@ -91,7 +91,7 @@ const ProductEditPage = ({ match, history }) => {
   };
 
   async function getCategory() {
-    let response = await axios.post("/api/products/category");
+    let response = await axios.post("https://infinite-stream-23131.herokuapp.com/api/products/category");
     if (response.status === 200) {
       SetDbCategory(response.data);
     }
@@ -131,7 +131,7 @@ const ProductEditPage = ({ match, history }) => {
         image: image,
         id: userInfo.id,
       };
-      let response = await axios.post(`/api/products/`, data);
+      let response = await axios.post(`https://infinite-stream-23131.herokuapp.com/api/products/`, data);
       if (response.status == 201) {
         history.push("/admin/productlist");
       }
@@ -162,7 +162,7 @@ const ProductEditPage = ({ match, history }) => {
             "Content-Type": "multipart/form-data",
           },
         };
-        let { data } = await axios.post(`/api/upload`, formData, config);
+        let { data } = await axios.post(`https://infinite-stream-23131.herokuapp.com/api/upload`, formData, config);
         let value = "/static/" + data;
         setImage(value);
         setUploading(false);

@@ -49,7 +49,7 @@ const MyAddress = ({ match, history }) => {
 			country:country
         };
         let response = await axios.post(
-          `/api/users/updateAddress`,data
+          `https://infinite-stream-23131.herokuapp.com/api/users/updateAddress`,data
         );
         if(response.status == 200){
             history.push('/myAddress')
@@ -61,7 +61,7 @@ const MyAddress = ({ match, history }) => {
             addressId:match.params.id
         }
         let response = await axios.post(
-          "/api/users/showSingleAddress",data
+          "https://infinite-stream-23131.herokuapp.com/api/users/showSingleAddress",data
         );
         if (response.status === 200) {
           setAddress(response.data.address);

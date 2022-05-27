@@ -154,7 +154,7 @@ const ProfilePage = ({ history }) => {
 				},
 			};
 
-			const { data } = await axios.post('/api/upload', formData, config);
+			const { data } = await axios.post('https://infinite-stream-23131.herokuapp.com/api/upload', formData, config);
 			let value = '/static/'+data
 			console.log(value)
 			setAvatar(value);

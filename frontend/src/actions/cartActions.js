@@ -10,7 +10,7 @@ import {
 // get the product id and the quantity of the item to add to the cart
 export const addItem = (id, qty) => async (dispatch, getState) => {
 	try {
-		const { data } = await axios.get(`/api/products/${id}`);	
+		const { data } = await axios.get(`https://infinite-stream-23131.herokuapp.com/api/products/${id}`);	
 		dispatch({
 			type: CART_ADD_ITEM,
 			payload: {
@@ -79,7 +79,7 @@ export const savePaymentMethod = (data) => async (dispatch) => {
 // get the product id and the quantity of the item to add to the cart
 export const addItemWishlist = (id, qty) => async (dispatch, getState) => {
 	try {
-		const { data } = await axios.get(`/api/products/${id}`);
+		const { data } = await axios.get(`https://infinite-stream-23131.herokuapp.com/api/products/${id}`);
 		dispatch({
 			type: CART_ADD_ITEM,
 			payload: {

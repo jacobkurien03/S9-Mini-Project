@@ -35,7 +35,7 @@ const CartPage = ({ match, location, history }) => {
 
   const handleGetProduct = async (id) =>{
     let response = await axios.get(
-      `/api/products/`+id
+      `https://infinite-stream-23131.herokuapp.com/api/products/`+id
     );
     return response.data.countInStock;
   }

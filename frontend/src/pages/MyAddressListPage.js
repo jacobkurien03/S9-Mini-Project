@@ -78,7 +78,7 @@ const ProductListPage = ({ history, match }) => {
                 addressId:id
             }
             let response = await axios.post(
-                `/api/users/deleteAddress`,data
+                `https://infinite-stream-23131.herokuapp.com/api/users/deleteAddress`,data
               );
               if (response.status === 200) {
                 getAddress()
@@ -99,7 +99,7 @@ const ProductListPage = ({ history, match }) => {
     async function getAddress() {
         console.log(userInfo.id)
         let response = await axios.post(
-          "/api/users/showAddress",data
+          "https://infinite-stream-23131.herokuapp.com/api/users/showAddress",data
         );
         if (response.status === 200) {
           setAddress(response.data.message);

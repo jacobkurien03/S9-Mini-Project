@@ -83,7 +83,7 @@ const OrderPage = ({ match, history }) => {
 						},
 				  };
 			const { data: clientID } = await axios.get(
-				'/api/config/paypal',
+				'https://infinite-stream-23131.herokuapp.com/api/config/paypal',
 				config
 			);
 			// add the script

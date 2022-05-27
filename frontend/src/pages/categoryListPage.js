@@ -45,7 +45,7 @@ const CategoryListPage = ({ history, match }) => {
   const token = window.localStorage.getItem("refreshToken")
   async function getCategory() {
     let response = await axios.post(
-      "/api/products/category",
+      "https://infinite-stream-23131.herokuapp.com/api/products/category",
     );
     if (response.status === 200) {
       SetCategory(response.data);
@@ -93,7 +93,7 @@ const CategoryListPage = ({ history, match }) => {
   async function handleDelete(id){
     if (window.confirm("Are you sure you wanna delete this category?")){
       let response = await axios.post(
-        `/api/products/categoryDelete/`+id,
+        `https://infinite-stream-23131.herokuapp.com/api/products/categoryDelete/`+id,
       );
       console.log(response.status)
       if (response.status === 200) {

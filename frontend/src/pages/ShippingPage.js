@@ -67,7 +67,7 @@ const ShippingPage = ({ history }) => {
 			userId:userInfo.id
 		}
 		let response = await axios.post(
-			"/api/users/showAddress",data
+			"https://infinite-stream-23131.herokuapp.com/api/users/showAddress",data
 		);
 		if (response.status === 200) {
 		  setDbAddress(response.data.message);
@@ -85,7 +85,7 @@ const ShippingPage = ({ history }) => {
 		  let data = {
 			  addressId:id
 		  }
-		let response = await axios.post('/api/users/showSingleAddress',data)
+		let response = await axios.post('https://infinite-stream-23131.herokuapp.com/api/users/showSingleAddress',data)
 		if(response.status == 200){
 			setAddress(response.data.address)
 			setCity(response.data.city)

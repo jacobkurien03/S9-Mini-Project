@@ -72,7 +72,7 @@ const Header = () => {
 				userId:userInfo.id
 			}
 			let response = await axios.post(
-			  "/api/products/getWishlist",data
+			  "https://infinite-stream-23131.herokuapp.com/api/products/getWishlist",data
 			);
 			if (response.status === 200) {     
 				let data = response.data.message
