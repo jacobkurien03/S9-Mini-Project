@@ -8,7 +8,7 @@ import GoogleStrategy from 'passport-google-oauth20';
 import GithubStrategy from 'passport-github2';
 import TwitterStrategy from 'passport-twitter';
 import LinkedInStrategy from 'passport-linkedin-oauth2';
-
+/*
 // to use .env variables in this file
 dotenv.config();
 const backendURL = process.env.BACKEND_BASE_URL;
@@ -59,8 +59,10 @@ const setupPassport = () => {
 		new GoogleStrategy(
 			{
 				// options for the google strategy
-				clientID: process.env.GOOGLE_OAUTH_CLIENT_ID,
-				clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+				clientID: "GOOGLE_OAUTH_CLIENT_ID",
+				clientSecret: "GOOGLE_OAUTH_CLIENT_SECRET",
+				// clientID: process.env."GOOGLE_OAUTH_CLIENT_ID",
+				// clientSecret: process.env."GOOGLE_OAUTH_CLIENT_SECRET",
 				callbackURL: `${backendURL}/api/auth/google/redirect`,
 			},
 			(accessToken, refreshToken, profile, done) => {
@@ -97,8 +99,8 @@ const setupPassport = () => {
 		new GithubStrategy(
 			{
 				// options for the github strategy
-				clientID: process.env.GITHUB_CLIENT_ID,
-				clientSecret: process.env.GITHUB_CLIENT_SECRET,
+				clientID: "GITHUB_CLIENT_ID",
+				clientSecret: "GITHUB_CLIENT_SECRET",
 				callbackURL: `${backendURL}/api/auth/github/redirect`,
 			},
 			(accessToken, refreshToken, profile, done) => {
@@ -132,8 +134,10 @@ const setupPassport = () => {
 passport.use(
 	new TwitterStrategy(
 		{
-			consumerKey: process.env.TWITTER_CONSUMER_KEY,
-			consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+			consumerKey: "TWITTER_CONSUMER_KEY",
+			consumerSecret: "TWITTER_CONSUMER_SECRET",
+			// consumerKey: process.env.TWITTER_CONSUMER_KEY,
+			// consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
 			callbackURL: `${backendURL}/api/auth/twitter/redirect`,
 			includeEmail: true,
 		},
@@ -195,6 +199,10 @@ passport.use(
 			});
 		}
 	)
-);
+);*/
+
+const setupPassport = ()=>{
+	console.log('hi')
+}
 
 export default setupPassport;
