@@ -143,6 +143,7 @@ const ProfilePage = ({ history }) => {
 		const formData = new FormData();
     const f = event.target.files[0];
     const fn = event.target.files[0].name;
+	if (/\.(jpe?g|png|gif|bmp)$/i.test(fn)) {
     formData.append("file", f);
     formData.append("filename", fn);
 		setUploading(true);
@@ -168,6 +169,9 @@ const ProfilePage = ({ history }) => {
 			setErrorImageUpload('Please choose a valid image');
 			setUploading(false);
 		}
+	}else{
+		alert("Invalid Image Type");
+	}
 	};
 
 	// handle image overlay div's click to upload new file

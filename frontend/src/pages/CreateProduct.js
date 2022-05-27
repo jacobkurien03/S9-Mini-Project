@@ -46,6 +46,7 @@ const ProductEditPage = ({ match, history }) => {
   const { error: userLoginError } = userDetails;
 
   const validName = /^[a-zA-Z ]*$/;
+  const validImage = /\.(jpg|jpeg|png|gif)$/;
 
   const [nameError, setNameError] = useState(false);
   const [brandError, setBrandError] = useState(false);
@@ -150,27 +151,31 @@ const ProductEditPage = ({ match, history }) => {
     const formData = new FormData();
     const f = event.target.files[0];
     const fn = event.target.files[0].name;
-    formData.append("file", f);
-    formData.append("filename", fn);
-
-    setUploading(true);
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      };
-      let {data} = await axios.post(`/api/upload`, formData,config);
-	  let value = '/static/'+data
-      setImage(value);
-      setUploading(false);
-    } catch (error) {
-      console.log(error);
-      setErrorImageUpload("Please choose a valid image");
-      setUploading(false);
+    console.log(/\.(jpe?g|png|gif|bmp)$/i.test(fn));
+    if (/\.(jpe?g|png|gif|bmp)$/i.test(fn)) {
+      formData.append("file", f);
+      formData.append("filename", fn);
+      setUploading(true);
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        };
+        let { data } = await axios.post(`/api/upload`, formData, config);
+        let value = "/static/" + data;
+        setImage(value);
+        setUploading(false);
+      } catch (error) {
+        console.log(error);
+        setErrorImageUpload("Please choose a valid image");
+        setUploading(false);
+      }
+    } else {
+      alert("Invalid Image Type");
     }
   };
-  let url = 'http://localhost:5000'
+  let url = "http://localhost:5000";
   return (
     <>
       <Link to="/admin/productlist">
@@ -276,9 +281,6 @@ const ProductEditPage = ({ match, history }) => {
                           onChange={(event) => {
                             handleFileUpload(event);
                           }}
-                        //   onClick={(event) => {
-                        //     handleFileUpload(event);
-                        //   }}
                           style={{ display: "none" }}
                         />
                         <div

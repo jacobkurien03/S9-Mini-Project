@@ -70,24 +70,31 @@ const CartPage = ({ match, location, history }) => {
   useEffect(async () => {
 	  if (productID) {
 		let cartMaterials = cart.cartItems;
+    let flag = 0
 		if(cartMaterials.length>0){
 			for (let i = 0; i < cartMaterials.length; i++) {
+        console.log(i)
+        let oldStock = await handleGetProduct(productID)
 				if (cartMaterials[i].product == productID) {
+          flag = 1;
 				  let newqty = cartMaterials[i].qty + qty;
-          let oldStock = await handleGetProduct(productID)
           if(newqty<=oldStock){
+            console.log("hi3")
             dispatch(addItem(productID, newqty));
+            history.push('/cart')
           }
-				  history.push('/cart')
-				} else {
-				  dispatch(addItem(productID, qty));
-				 history.push('/cart')
-				}
-			  }
+				} 
+			}
 		}else{
+      console.log('hi2')
 			dispatch(addItem(productID, qty));
 				 history.push('/cart')
 		}
+    if(flag ==0){
+        console.log("hi")
+        dispatch(addItem(productID, qty));
+        history.push('/cart')
+    }
       
     }
   }, [cart.cartItems, dispatch, history, productID, qty]);
