@@ -42,11 +42,9 @@ const CategoryListPage = ({ history, match }) => {
   const userDetails = useSelector((state) => state.userDetails);
   const { error: userLoginError } = userDetails;
 
-  const token = window.localStorage.getItem("refreshToken")
+  const token = window.localStorage.getItem("refreshToken");
   async function getCategory() {
-    let response = await axios.post(
-      "https://infinite-stream-23131.herokuapp.com/api/products/category",
-    );
+    let response = await axios.post("/api/products/category");
     if (response.status === 200) {
       SetCategory(response.data);
     }
@@ -90,23 +88,20 @@ const CategoryListPage = ({ history, match }) => {
   ]);
 
   // delete product after confirming
-  async function handleDelete(id){
-    if (window.confirm("Are you sure you wanna delete this category?")){
-      let response = await axios.post(
-        `https://infinite-stream-23131.herokuapp.com/api/products/categoryDelete/`+id,
-      );
-      console.log(response.status)
+  async function handleDelete(id) {
+    if (window.confirm("Are you sure you wanna delete this category?")) {
+      let response = await axios.post(`/api/products/categoryDelete/` + id);
+      console.log(response.status);
       if (response.status === 200) {
-        getCategory()
-      }
-      else{
-        alert(response.message)
+        getCategory();
+      } else {
+        alert(response.message);
       }
     }
-  };
+  }
   // create a new dummy product
   const handleCreateCategory = () => {
-    history.push('/admin/createCategory');
+    history.push("/admin/createCategory");
   };
   return (
     <>

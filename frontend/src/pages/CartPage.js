@@ -15,7 +15,7 @@ import Meta from "../components/Meta";
 import Message from "../components/Message";
 import { refreshLogin, getUserDetails } from "../actions/userActions";
 import { addItem, removeItem } from "../actions/cartActions";
-import axios from 'axios';
+import axios from "axios";
 
 const CartPage = ({ match, location, history }) => {
   const [totalItems, setTotalItems] = useState(0);
@@ -33,12 +33,10 @@ const CartPage = ({ match, location, history }) => {
   const userDetails = useSelector((state) => state.userDetails);
   const { error } = userDetails;
 
-  const handleGetProduct = async (id) =>{
-    let response = await axios.get(
-      `https://infinite-stream-23131.herokuapp.com/api/products/`+id
-    );
+  const handleGetProduct = async (id) => {
+    let response = await axios.get(`/api/products/` + id);
     return response.data.countInStock;
-  }
+  };
 
   // get user details depending on what type of login it is, dispatch with correspnding argument
   useEffect(() => {
@@ -64,38 +62,35 @@ const CartPage = ({ match, location, history }) => {
     }
   }, [error, dispatch, userInfo]);
 
-  
-
   // add item to cart
   useEffect(async () => {
-	  if (productID) {
-		let cartMaterials = cart.cartItems;
-    let flag = 0
-		if(cartMaterials.length>0){
-			for (let i = 0; i < cartMaterials.length; i++) {
-        console.log(i)
-        let oldStock = await handleGetProduct(productID)
-				if (cartMaterials[i].product == productID) {
-          flag = 1;
-				  let newqty = cartMaterials[i].qty + qty;
-          if(newqty<=oldStock){
-            console.log("hi3")
-            dispatch(addItem(productID, newqty));
-            history.push('/cart')
+    if (productID) {
+      let cartMaterials = cart.cartItems;
+      let flag = 0;
+      if (cartMaterials.length > 0) {
+        for (let i = 0; i < cartMaterials.length; i++) {
+          console.log(i);
+          let oldStock = await handleGetProduct(productID);
+          if (cartMaterials[i].product == productID) {
+            flag = 1;
+            let newqty = cartMaterials[i].qty + qty;
+            if (newqty <= oldStock) {
+              console.log("hi3");
+              dispatch(addItem(productID, newqty));
+              history.push("/cart");
+            }
           }
-				} 
-			}
-		}else{
-      console.log('hi2')
-			dispatch(addItem(productID, qty));
-				 history.push('/cart')
-		}
-    if(flag ==0){
-        console.log("hi")
+        }
+      } else {
+        console.log("hi2");
         dispatch(addItem(productID, qty));
-        history.push('/cart')
-    }
-      
+        history.push("/cart");
+      }
+      if (flag == 0) {
+        console.log("hi");
+        dispatch(addItem(productID, qty));
+        history.push("/cart");
+      }
     }
   }, [cart.cartItems, dispatch, history, productID, qty]);
 
