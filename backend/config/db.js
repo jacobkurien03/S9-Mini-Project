@@ -4,11 +4,14 @@ import mongoose from "mongoose";
 //mongodb+srv://jacobkurien:Qwerty@1@cluster0.nihfm4n.mongodb.net/?retryWrites=true&w=majority
 const connectDB = () => {
   mongoose
-    .connect("mongodb+srv://jacobkurien:Qwerty@1@cluster0.nihfm4n.mongodb.net/?retryWrites=true&w=majority", {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-    })
+    .connect(
+      "mongodb+srv://jacobkurien:Qwerty@1@cluster0.nihfm4n.mongodb.net/test",
+      {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
+      }
+    )
     .then((res) =>
       console.log(
         `MongoDB Connected: ${res.connection.host}`.cyan.underline.bold
